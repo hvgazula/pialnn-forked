@@ -15,6 +15,7 @@ if __name__ == '__main__':
     """set device"""
     if torch.cuda.is_available():
         device_name = "cuda:0"
+        print('selected gpu')
     else:
         device_name = "cpu"
     device = torch.device(device_name)
@@ -55,8 +56,10 @@ if __name__ == '__main__':
         #AD = []
         #HD = []
         for idx, data in tqdm(enumerate(testloader)):
-            volume_in, v_gt, f_gt, v_in, f_in, sub_id = data
+            volume_in, v_gt, f_gt, v_in, f_in = data
 
+            sub_id = idx
+	
             volume_in = volume_in.to(device)
             v_gt = v_gt.to(device)
             f_gt = f_gt.to(device)
@@ -81,16 +84,16 @@ if __name__ == '__main__':
             #HD.append(hd)
             print('sub_id',sub_id)
             if config.save_mesh_eval:
-                path_save_mesh = "./ckpts/eval_subj_id/pialnn_mesh_eval_"\
-                        +config.hemisphere+"_subject_"+str(sub_id.item())+".obj"
+                path_save_mesh = "./ckpts/eval/pialnn_mesh_eval_"\
+                        +config.hemisphere+"_subject_"+str(sub_id)+".obj"
 
                 normal = compute_normal(v_pred, f_in)
                 n_pred_eval = normal[0].cpu().numpy()
                 save_mesh_obj(v_pred_eval, f_pred_eval, n_pred_eval, path_save_mesh)
                 
                 ################
-                path_save_mesh = "./ckpts/eval_subj_id/pialnn_mesh_eval_"\
-                        +config.hemisphere+"_subject_"+str(sub_id.item())+"_gt.obj"
+                path_save_mesh = "./ckpts/eval/pialnn_mesh_eval_"\
+                        +config.hemisphere+"_subject_"+str(sub_id)+"_gt.obj"
 
                 normal = compute_normal(v_gt, f_gt)
                 n_gt_eval = normal[0].cpu().numpy()

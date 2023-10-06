@@ -77,7 +77,7 @@ def load_data(data_path, hemisphere):
     data path: path of dataset
     """
     
-    subject_lists = sorted(os.listdir(data_path))
+    subject_lists = sorted([d for d in os.listdir(data_path) if os.path.isdir(os.path.join(data_path, d))])
 
     dataset = []
     
