@@ -42,7 +42,7 @@ if __name__ == '__main__':
     """load model"""
     print("Start loading model ...")
     model = PialNN(config.nc, config.K, config.n_scale).to(device)
-    model.load_state_dict(torch.load(config.best_model,
+    model.load_state_dict(torch.load(config.model,
                                      map_location=device))
     model.initialize(L, W, H, device)
     print("Finish loading model")
