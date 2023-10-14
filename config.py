@@ -9,7 +9,7 @@ def load_config():
     parser.add_argument('--data_path', default="./data/train/", type=str, help="path of the dataset")
     parser.add_argument('--hemisphere', default="lh", type=str, help="left or right hemisphere (lh or rh)")
     # model file
-    parser.add_argument('--model', dest="best_model", "./ckpts/model/pialnn_model_lh_200epochs.pt",help="path to best model")
+    parser.add_argument('--model', help="path to best model")
     #model
     parser.add_argument('--nc', default=128, type=int, help="num of channels")
     parser.add_argument('--K', default=5, type=int, help="kernal size")
